@@ -13,6 +13,11 @@
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function() {
-    Route::get('/home', 'HomeController@index')->name('home');
-});        
+Route::group(['middleware' => ['web', 'auth']], function () {
+    Route::get('/admin/home', 'HomeController@index')->name('home');
+
+    Route::get('/home', function() {
+        \Auth::logout();
+        return "Home";
+    });
+});
