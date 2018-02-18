@@ -24,7 +24,18 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        $this->registerPermissionsPolicies();
         //
+    }
+
+    public function registerPermissionsPolicies()
+    {
+        Gate::define('manage-stock', function ($user) {
+            return $user->hasAccess(['manage-stock']);
+        });
+
+        Gate::define('manage-users', function ($user) {
+            return $user->hasAccess(['manage-users']);
+        });
     }
 }

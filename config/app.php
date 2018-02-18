@@ -167,6 +167,9 @@ return [
         // Laravel - AdminLTE
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
 
+        // Yajra Datatable
+        Yajra\Datatables\DatatablesServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -228,6 +231,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Datatables' => Yajra\Datatables\Datatables::class,
 
     ],
 

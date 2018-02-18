@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => CoreTecs\User::class,
+        'model' => CoreTecs\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

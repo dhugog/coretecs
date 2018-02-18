@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function __construct() {    
+        $this->middleware(function ($request, $next) {
+            if(!authorized(2)) return redirect('/home');
+
+            return $next($request);
+        });
+    }
+    
     /**
      * Show the application dashboard.
      *

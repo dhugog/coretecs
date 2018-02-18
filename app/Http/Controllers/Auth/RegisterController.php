@@ -2,7 +2,8 @@
 
 namespace CoreTecs\Http\Controllers\Auth;
 
-use CoreTecs\User;
+use CoreTecs\Models\User;
+use CoreTecs\Models\Role;
 use CoreTecs\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -59,14 +60,29 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \CoreTecs\User
+     * @return CoreTecs\Models\User
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+        $user = User::create([
+            'name'     => $data['name'],
+            'email'    => $data['email'],            
             'password' => bcrypt($data['password']),
         ]);
+
+        $user
+            ->roles()
+            ->attach(Role::where('name', 'employee')->first());
+            
+        return $user;
     }
+    // protected function create(array $data)
+    // {
+    //     return User::create([
+    //         'name' => $data['name'],
+    //         'email' => $data['email'],
+    //         'permission' => 1,
+    //         'password' => bcrypt($data['password']),
+    //     ]);
+    // }
 }

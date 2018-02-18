@@ -17,11 +17,12 @@ class CreateProdutosTable extends Migration
             $table->increments('id');
             $table->integer('id_categoria')->unsigned();
             $table->string('nome', 50);
-            $table->string('descricao');            
-            $table->float('preco', 8, 2);
+            $table->string('descricao');
+            $table->float('preco', 8,2);
             $table->string('imagem', 100)->nullable();
             $table->timestamps();
-            
+            $table->softDeletes();
+
             $table->foreign('id_categoria')->references('id')->on('categorias');
         });
     }

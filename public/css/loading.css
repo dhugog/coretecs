@@ -1,0 +1,23 @@
+.loading-modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://bestanimations.com/Science/Gears/loadinggears/loading-gears-animation-13-3.gif') 
+                50% 50%  / 5%
+                no-repeat;
+}
+
+/* enquanto estiver carregando, o scroll da página estará desativado */
+body.loading {
+    overflow: hidden;   
+}
+
+/* a partir do momento em que o body estiver com a classe loading,  o modal aparecerá */
+body.loading .loading-modal {
+    display: block;
+}

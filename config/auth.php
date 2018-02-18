@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => CoreTecs\User::class,
+            'model' => CoreTecs\Models\User::class,
         ],
 
         // 'users' => [
