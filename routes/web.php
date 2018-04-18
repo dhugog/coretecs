@@ -35,6 +35,7 @@ Route::group(['middleware' => ['web', 'auth', 'can:manage-stock']], function () 
 Route::group(['middleware' => ['web', 'auth', 'can:manage-users']], function () {
     // Usuarios
     Route::get('/admin/usuarios/data', ['as' => 'usuarios.data', 'uses' => 'UserController@data']);
+    Route::get('/admin/usuarios/{usuario}/restore', ['as' => 'usuarios.restore', 'uses' => 'UserController@restore']);
     Route::resource('/admin/usuarios', 'UserController');
 
     // Roles

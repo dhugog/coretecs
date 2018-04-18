@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * Exemplo de rota
+ * http://localhost/CoreTecs/public/index.php/api/pessoa
+ */
+
+Route::group(['namespace' => 'Api', 'middleware' => ['api']], function(){
+    Route::resource('pessoa', 'PessoaApiController');
 });

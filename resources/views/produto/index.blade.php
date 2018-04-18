@@ -4,7 +4,6 @@
 
 @section('components')
     @include('components.modal')
-
     @include('components.modal-image')
 @endsection
 

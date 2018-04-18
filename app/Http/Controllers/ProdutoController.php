@@ -47,7 +47,31 @@ class ProdutoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {                        
+    {          
+        $rules = [
+            'id_categoria' => 'required',
+            'nome'         => 'required|max:50',
+            'marca'        => 'required|max:100',
+            'descricao'    => 'max:190',
+            'preco'        => 'required',            
+        ];
+
+        $messages = [
+            'required' => 'Campo :attribute obrigatório.',            
+            'nome.max'      => 'Campo :attribute deve ter no máximo 50 caracteres.',
+            'marca.max'      => 'Campo :attribute deve ter no máximo 100 caracteres.',
+            'descricao.max'      => 'Campo :attribute deve ter no máximo 190 caracteres.',
+        ];
+
+        $validator = Validator::make($request->data, $rules, $messages);
+
+        if($validator->fails()) {
+            return array(
+                'fail' => true,
+                'errors' => $validator->getMessageBag()->toArray()
+            );
+        }
+
         Produto::create($request->data);
     }
 
@@ -84,6 +108,30 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'id_categoria' => 'required',
+            'nome'         => 'required|max:50',
+            'marca'        => 'required|max:100',
+            'descricao'    => 'max:190',
+            'preco'        => 'required',            
+        ];
+
+        $messages = [
+            'required' => 'Campo :attribute obrigatório.',            
+            'nome.max'      => 'Campo :attribute deve ter no máximo 50 caracteres.',
+            'marca.max'      => 'Campo :attribute deve ter no máximo 100 caracteres.',
+            'descricao.max'      => 'Campo :attribute deve ter no máximo 190 caracteres.',
+        ];
+
+        $validator = Validator::make($request->data, $rules, $messages);
+
+        if($validator->fails()) {
+            return array(
+                'fail' => true,
+                'errors' => $validator->getMessageBag()->toArray()
+            );
+        }
+
         $produto = Produto::where('id', $id)->first();
 
         $dir = 'uploads/produtos/' . $produto->imagem;
@@ -168,8 +216,8 @@ class ProdutoController extends Controller
             [
                 'file' => 'image',
             ],
-            [
-                'file.image' => 'O arquivo deve ser nos formatos jpeg, png, bmp, gif, ou svg.'
+            [                
+                'file.image'    => 'O arquivo deve ser nos formatos jpeg, png, bmp, gif, ou svg.'
             ]
         );
 
@@ -183,11 +231,15 @@ class ProdutoController extends Controller
         // $extension = $request->file('file')->getClientOriginalExtension(); // getting image extension
         // $filename = uniqid() . '_' . time() . '.' . $extension;
 
-        $filename = strtolower($request->file('file')->getClientOriginalName());
+        if($request->file('file')) {
+            $filename = strtolower($request->file('file')->getClientOriginalName());
+    
+            $dir = 'uploads/produtos/';
+            
+            $request->file('file')->move($dir, $filename);
+            return $dir . $filename;
+        }
 
-        $dir = 'uploads/produtos/';
-        
-        $request->file('file')->move($dir, $filename);
-        return $dir . $filename;        
+        return null;
     }
 }

@@ -3,6 +3,7 @@
 namespace CoreTecs\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Datatables;
 use Yajra\DataTables\Html\Builder;
 use \CoreTecs\Models\Categoria;
@@ -45,6 +46,25 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'nome'     => 'required|min:3|max:50',
+        ];
+
+        $messages = [
+            'required'           => 'Campo :attribute obrigatório.',
+            'nome.min'           => 'Campo Nome deve ter no mínimo 3 caracteres.',
+            'nome.max'           => 'Campo Nome deve ter no máximo 50 caracteres.',
+        ];        
+
+        $validator = Validator::make($request->data, $rules, $messages);
+
+        if($validator->fails()) {
+            return array(
+                'fail' => true,
+                'errors' => $validator->getMessageBag()->toArray()
+            );
+        }
+
         Categoria::create($request->data);
     }
 
@@ -81,6 +101,25 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'nome'     => 'required|min:3|max:50',
+        ];
+
+        $messages = [
+            'required'           => 'Campo :attribute obrigatório.',
+            'nome.min'           => 'Campo Nome deve ter no mínimo 3 caracteres.',
+            'nome.max'           => 'Campo Nome deve ter no máximo 50 caracteres.',
+        ];        
+
+        $validator = Validator::make($request->data, $rules, $messages);
+
+        if($validator->fails()) {
+            return array(
+                'fail' => true,
+                'errors' => $validator->getMessageBag()->toArray()
+            );
+        }
+        
         Categoria::where('id', $id)->update($request->data);
     }
 

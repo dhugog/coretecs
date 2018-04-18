@@ -14,13 +14,17 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         // DB::table('role_user')->delete();
-        // DB::table('roles')->delete();        
-
+        // DB::table('roles')->delete();
+        
         $role = Role::create([
-            'name' => 'administrator',
-            'permissions' => [
-                'manage-users' => true,
-                'manage-stock' => true,                
+            'name' => 'user',
+        ]);
+            
+        $role = Role::create([
+            'name' => 'employee',
+            'permissions' => [                  
+                'manage-stock' => true,
+                'manage-users' => false,
             ]
         ]);
 
@@ -33,15 +37,11 @@ class RoleTableSeeder extends Seeder
         ]);
 
         $role = Role::create([
-            'name' => 'employee',
-            'permissions' => [                  
-                'manage-stock' => true,
-                'manage-users' => false,
+            'name' => 'administrator',
+            'permissions' => [
+                'manage-users' => true,
+                'manage-stock' => true,                
             ]
-        ]);
-
-        $role = Role::create([
-            'name' => 'user',
         ]);
     }
 }

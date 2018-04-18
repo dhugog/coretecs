@@ -33,7 +33,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'id_role', 'password',
+        'name', 'email', 'id_role', 'password', 'id_pessoa'
     ];
 
     /**
@@ -54,8 +54,13 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->hasOne(\CoreTecs\Models\Role::class, 'id', 'id_role');
+        return $this->hasOne('CoreTecs\Models\Role', 'id', 'id_role');
         //                                         Foreign Key , Local Key
+    }
+
+    public function pessoa()
+    {
+        return $this->belongsTo('CoreTecs\Models\Pessoa', 'id_pessoa');
     }
 
     /**

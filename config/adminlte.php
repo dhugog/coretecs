@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin/home',
 
     'logout_url' => 'logout',
 
@@ -127,13 +127,6 @@ return [
             'url'  => 'admin/usuarios',
             'icon' => 'users',
             'can'  => 'manage-users',
-        ],
-        'RELATÓRIOS',
-        [
-            'text' => 'Produtos',
-            'url'  => 'admin/produtos/relatorio',
-            'icon' => 'list-ul',
-            'can'  => 'manage-stock',
         ],
     ],
 

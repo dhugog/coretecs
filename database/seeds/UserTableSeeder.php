@@ -22,6 +22,7 @@ class UserTableSeeder extends Seeder
         $user->permission = 5;
         $user->id_role = $role_adm->id;
         $user->password = bcrypt('123');
+        $user->id_pessoa = 1;
         $user->save();        
     }
 }
